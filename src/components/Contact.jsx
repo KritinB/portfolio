@@ -121,7 +121,7 @@ export default function Contact() {
             KRITIN BYSANI
           </span>
           <p style={{ fontSize: '9px', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.15)' }}>
-            © 2025 — CHENNAI, INDIA
+            © 2026 — CHENNAI, INDIA
           </p>
           <p style={{ fontSize: '9px', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.15)' }}>
             ASPIRING DEVELOPER
