@@ -8,7 +8,7 @@ const education = [
   },
   {
     institution: 'APL Global School',
-    degree: 'AS & A Levels — Math, CS, Business',
+    degree: 'AS & A Levels — Math, Computer Science, Business, Accounts',
     period: '2024 — 2026',
   },
 ]
