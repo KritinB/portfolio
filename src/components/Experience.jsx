@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 
@@ -69,7 +70,9 @@ export default function Experience() {
 
         <div className="thin-line mb-0" />
 
-        {experience.map((e, i) => (
+        {experience.map((e, i) => {
+          const [hovered, setHovered] = useState(false)
+          return (
           <motion.div
             key={e.number}
             initial={{ opacity: 0, y: 20 }}
@@ -77,7 +80,9 @@ export default function Experience() {
             viewport={{ once: true, margin: '-40px' }}
             transition={{ delay: i * 0.1 }}
             className="work-card"
-            style={{ borderTop: 'none', marginTop: '-1px' }}
+            style={{ borderTop: 'none', marginTop: '-1px', background: hovered ? 'rgba(255,255,255,0.02)' : 'transparent', transition: 'background 0.3s' }}
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
           >
             <div className="px-0 py-8 grid md:grid-cols-12 gap-6 items-start">
 
@@ -177,13 +182,16 @@ export default function Experience() {
 
               {/* Arrow */}
               <div className="md:col-span-1 flex justify-end">
-                <ArrowUpRight size={14} color="rgba(255,255,255,0.25)" />
+                <motion.div animate={{ x: hovered ? 3 : 0, y: hovered ? -3 : 0 }} transition={{ duration: 0.2 }}>
+                  <ArrowUpRight size={14} color={hovered ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.25)'} />
+                </motion.div>
               </div>
 
             </div>
             <div className="thin-line" />
           </motion.div>
-        ))}
+          )
+        })}
 
       </div>
     </section>

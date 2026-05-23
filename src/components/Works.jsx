@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 
@@ -72,7 +73,9 @@ export default function Works() {
         <div className="thin-line mb-0" />
 
         {/* Work items */}
-        {works.map((w, i) => (
+        {works.map((w, i) => {
+          const [hovered, setHovered] = useState(false)
+          return (
           <motion.div
             key={w.number}
             initial={{ opacity: 0, y: 20 }}
@@ -80,23 +83,29 @@ export default function Works() {
             viewport={{ once: true, margin: '-40px' }}
             transition={{ delay: i * 0.1 }}
             className="work-card"
-            style={{ borderTop: 'none', marginTop: '-1px' }}
+            style={{ borderTop: 'none', marginTop: '-1px', background: hovered ? 'rgba(255,255,255,0.02)' : 'transparent', transition: 'background 0.3s' }}
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
           >
             <div className="px-0 py-8 grid md:grid-cols-12 gap-6 items-start">
 
               {/* Number */}
               <div className="md:col-span-1">
-                <span
+                <motion.span
+                  animate={{ x: hovered ? 4 : 0 }}
+                  transition={{ duration: 0.2 }}
                   style={{
+                    display: 'block',
                     fontSize: '10px',
                     fontWeight: 700,
                     letterSpacing: '0.15em',
-                    color: 'rgba(255,255,255,0.2)',
+                    color: hovered ? 'rgba(255,255,255,0.5)' : 'rgba(255,255,255,0.2)',
                     fontFamily: 'monospace',
+                    transition: 'color 0.2s',
                   }}
                 >
                   {w.number}
-                </span>
+                </motion.span>
               </div>
 
               {/* Title + tags */}
@@ -162,24 +171,19 @@ export default function Works() {
 
               {/* Year + arrow */}
               <div className="md:col-span-1 flex flex-col items-end gap-3">
-                <span
-                  style={{
-                    fontSize: '9px',
-                    fontWeight: 600,
-                    letterSpacing: '0.15em',
-                    color: 'rgba(255,255,255,0.2)',
-                    fontFamily: 'monospace',
-                  }}
-                >
+                <span style={{ fontSize: '9px', fontWeight: 600, letterSpacing: '0.15em', color: 'rgba(255,255,255,0.2)', fontFamily: 'monospace' }}>
                   {w.year}
                 </span>
-                <ArrowUpRight size={14} color="rgba(255,255,255,0.25)" />
+                <motion.div animate={{ x: hovered ? 3 : 0, y: hovered ? -3 : 0 }} transition={{ duration: 0.2 }}>
+                  <ArrowUpRight size={14} color={hovered ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.25)'} />
+                </motion.div>
               </div>
 
             </div>
             <div className="thin-line" />
           </motion.div>
-        ))}
+          )
+        })}
 
       </div>
     </section>

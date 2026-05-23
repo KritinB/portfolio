@@ -1,6 +1,10 @@
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 
 export default function Hero() {
+  const { scrollY } = useScroll()
+  const y = useTransform(scrollY, [0, 600], [0, 80])
+  const opacity = useTransform(scrollY, [0, 400], [1, 0])
+
   return (
     <section
       id="home"
@@ -12,7 +16,7 @@ export default function Hero() {
         <div /><div /><div /><div />
       </div>
 
-      {/* Warm spotlight background — simulates the photo backdrop */}
+      {/* Warm spotlight background */}
       <div
         className="absolute inset-0"
         style={{
@@ -27,7 +31,7 @@ export default function Hero() {
         }}
       />
 
-      {/* Subtle vignette top */}
+      {/* Vignette */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -35,7 +39,7 @@ export default function Hero() {
         }}
       />
 
-      {/* Crosshair markers at grid corners */}
+      {/* Crosshairs */}
       <span className="crosshair absolute" style={{ top: '44px', left: '25%' }} />
       <span className="crosshair absolute" style={{ top: '44px', right: '25%' }} />
       <span className="crosshair absolute" style={{ bottom: '80px', left: '25%' }} />
@@ -46,8 +50,7 @@ export default function Hero() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8, duration: 0.6 }}
-        className="absolute z-20 text-right"
-        style={{ top: '80px', right: '28px', maxWidth: '220px' }}
+        style={{ opacity, position: 'absolute', zIndex: 20, top: '80px', right: '28px', maxWidth: '220px', textAlign: 'right' }}
       >
         <p
           style={{
@@ -66,8 +69,11 @@ export default function Hero() {
         </p>
       </motion.div>
 
-      {/* KRITIN / BYSANI — stacked, bottom of hero */}
-      <div className="absolute z-20 w-full" style={{ bottom: '18%', paddingLeft: '8%' }}>
+      {/* KRITIN'S / PORTFOLIO — parallax on scroll */}
+      <motion.div
+        className="absolute z-20 w-full"
+        style={{ bottom: '18%', paddingLeft: '8%', y }}
+      >
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
@@ -86,33 +92,25 @@ export default function Hero() {
             PORTFOLIO
           </span>
         </motion.div>
-      </div>
+      </motion.div>
 
-      {/* Badge — bottom left */}
+      {/* Badge */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1, duration: 0.5 }}
-        className="absolute z-20"
-        style={{ left: '24px', bottom: '24px' }}
+        style={{ opacity, position: 'absolute', zIndex: 20, left: '24px', bottom: '24px' }}
       >
-        <div
+        <motion.div
+          whileHover={{ borderColor: 'rgba(255,255,255,0.5)' }}
           className="inline-flex items-center gap-2 px-3 py-1.5"
-          style={{ border: '1px solid rgba(255,255,255,0.18)' }}
+          style={{ border: '1px solid rgba(255,255,255,0.18)', transition: 'border-color 0.3s' }}
         >
           <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '10px' }}>✦</span>
-          <span
-            style={{
-              fontSize: '9px',
-              fontWeight: 700,
-              letterSpacing: '0.18em',
-              textTransform: 'uppercase',
-              color: 'rgba(255,255,255,0.75)',
-            }}
-          >
+          <span style={{ fontSize: '9px', fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.75)' }}>
             ASPIRING DEVELOPER
           </span>
-        </div>
+        </motion.div>
       </motion.div>
     </section>
   )

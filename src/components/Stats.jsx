@@ -24,7 +24,8 @@ export default function Stats() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.07 }}
-            className="px-6 py-5"
+            whileHover={{ backgroundColor: 'rgba(255,255,255,0.03)' }}
+            className="px-6 py-5 cursor-default"
             style={{
               borderRight: i < stats.length - 1 ? '1px solid rgba(255,255,255,0.07)' : 'none',
               borderBottom: i < 2 ? '1px solid rgba(255,255,255,0.07)' : 'none',
